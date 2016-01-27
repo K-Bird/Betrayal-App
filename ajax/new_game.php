@@ -2,6 +2,7 @@
 
 include ('../libs/db/db_functions.php');
 
+$SetGameStatus = db_query("UPDATE `game_controls` set Value='Not Started' WHERE Control='Game Status'");
 $SetActiveStatus = db_query("UPDATE `characters_list` set Active='N'");
 $RemoveAlterEgo = db_query("TRUNCATE `active_characters`");
 

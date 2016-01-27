@@ -1,11 +1,5 @@
 <?php
-$con = mysql_connect("localhost", 'root', 'Fly0Bird797979');
-
-if (!$con) {
-    die('Could not connect!' . mysql_error());
-}
-
-mysql_select_db("betrayalapp_db", $con);
+include ('libs/db/db_functions.php');
 ?>
 
 <html>
@@ -19,16 +13,17 @@ mysql_select_db("betrayalapp_db", $con);
     </head>
     <body>
         <div class="container-fluid" style="text-align : center">
+        <?php include ('parts/checkGameStatus.php'); ?>
             <div class="row">
                 <div class="col-lg-12">
                     <h1>Betrayal App</h1>
                     <br><br>
-                    <h3>Choose Characters Playing:</h3>
+                    <h3 <?php if ($gm_status === 'Started') { echo 'style="display: none"'; } ?>>Choose Characters Playing:</h3>
                 </div>
             </div>
             <br><br>
             <?php include ('parts/checkActive.php'); ?>
-            <div class="row pre-game-setup">
+            <div class="row" <?php if ($gm_status === 'Started') { echo 'style="display: none"'; } ?>>
                 <div class="col-lg-3">
                     <div class="btn-group-sm" role="group" aria-label="...">
                         <button id="1" type="button" class="btn btn-default addActiveChar" <?php if ($StatusOf1 === 'Y') {
@@ -71,7 +66,7 @@ mysql_select_db("betrayalapp_db", $con);
                 </div>
             </div>
             <br><br>
-            <div class="row pre-game-setup">
+            <div class="row" <?php if ($gm_status === 'Started') { echo 'style="display: none"'; } ?>>
                 <div class="col-lg-6">
                     <div class="btn-group-sm" role="group" aria-label="...">
                         <button id="9" type="button" class="btn btn-default addActiveChar" <?php if ($StatusOf9 === 'Y') {
@@ -93,43 +88,43 @@ mysql_select_db("betrayalapp_db", $con);
                     </div>
                 </div>
             </div>
-            <div class="row pre-game-setup">
+            <div class="row" <?php if ($gm_status === 'Started') { echo 'style="display: none"'; } ?>>
                 <div class="col-lg-12">
                     <button id="resetChar" class="btn btn-warning">Reset Characters</button>
                     &nbsp;
-                    <button class="btn btn-primary">Start Game</button>
+                    <button id="startGameBtn" class="btn btn-primary">Start Game</button>
                 </div>
             </div>
             <br><br>
             <div class="row game-in-progress">
                 <div class="col-lg-12">
-                        <?php $GetActivePlayers = mysql_query("SELECT * FROM `active_characters`", $con); ?>
+                        <?php $GetActivePlayers = db_query("SELECT * FROM `active_characters`"); ?>
                     <table class="table table-condensed" style="text-align : center">
                         <tr>
                             <td>Character</td><td>Speed</td><td>Might</td><td>Sanity</td><td>Knowledge</td>
                         </tr>
                         <?php
-                        while ($tableRow = mysql_fetch_array($GetActivePlayers)) {
-                            $CharID = $tableRow['Character_ID'];
-                            $GetCharName = mysql_query("SELECT `Persona` FROM `characters_list` WHERE Row_ID='{$CharID}'", $con);
-                            $valueOfName = mysql_fetch_object($GetCharName);
-                            $name = $valueOfName->Persona;
+                        while ($activePlayerRow = $GetActivePlayers->fetch_assoc()) {
+                            $CharID = $activePlayerRow['Character_ID'];
+                            $GetCharName = db_query("SELECT `Persona` FROM `characters_list` WHERE Row_ID='{$CharID}'");
+                            $valueOfName = $GetCharName->fetch_assoc();
+                            $name = $valueOfName['Persona'];
 
-                            $currentSpeedIndex = $tableRow['current_speed'];
-                            $getSpeedScale = mysql_query("SELECT * FROM `stat_scale_speed` WHERE Row_ID='{$CharID}'", $con);
+                            $currentSpeedIndex = $activePlayerRow['current_speed'];
+                            $getSpeedScale = db_query("SELECT * FROM `stat_scale_speed` WHERE Row_ID='{$CharID}'");
                             
-                            $currentMightIndex = $tableRow['current_might'];
-                            $getMightScale = mysql_query("SELECT * FROM `stat_scale_might` WHERE Row_ID='{$CharID}'", $con);
+                            $currentMightIndex = $activePlayerRow['current_might'];
+                            $getMightScale = db_query("SELECT * FROM `stat_scale_might` WHERE Row_ID='{$CharID}'");
                             
-                            $currentSanityIndex = $tableRow['current_sanity'];
-                            $getSanityScale = mysql_query("SELECT * FROM `stat_scale_sanity` WHERE Row_ID='{$CharID}'", $con);
+                            $currentSanityIndex = $activePlayerRow['current_sanity'];
+                            $getSanityScale = db_query("SELECT * FROM `stat_scale_sanity` WHERE Row_ID='{$CharID}'");
                             
-                            $currentKnowledgeIndex = $tableRow['current_knowledge'];
-                            $getKnowledgeScale = mysql_query("SELECT * FROM `stat_scale_knowledge` WHERE Row_ID='{$CharID}'", $con);
+                            $currentKnowledgeIndex = $activePlayerRow['current_knowledge'];
+                            $getKnowledgeScale = db_query("SELECT * FROM `stat_scale_knowledge` WHERE Row_ID='{$CharID}'");
 
                             echo '<tr><td>' . $name . '</td>';
 
-                            while ($speedScaleRow = mysql_fetch_array($getSpeedScale)) {
+                            while ($speedScaleRow = $getSpeedScale->fetch_assoc()) {
 
                             echo '<td>
                                   <span '; if ($currentSpeedIndex === '1') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $speedScaleRow['1'] . '</span>
@@ -141,11 +136,22 @@ mysql_select_db("betrayalapp_db", $con);
                                   <span '; if ($currentSpeedIndex === '7') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $speedScaleRow['7'] . '</span>
                                   <span '; if ($currentSpeedIndex === '8') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $speedScaleRow['8'] . '</span>
                                   <span '; if ($currentSpeedIndex === '9') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $speedScaleRow['9'] . '</span>
-                                  <br><br><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                  </td>';
+                                  <br><br>';
+                                  if ($currentSpeedIndex === '1') {
+                                      echo '<button class="btn btn-danger" disabled><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>';
+                                  } else {
+                                      echo '<button class="btn btn-danger attrChg" data-attr="speed" data-id="'.$CharID.'" data-chg="down"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>';
+                                  }
+                                  if ($currentSpeedIndex === '9') {
+                                  echo ' <button class="btn btn-success" disabled><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>';
+                                      
+                                  } else {
+                                  echo '<button class="btn btn-success attrChg" data-attr="speed" data-id="'.$CharID.'" data-chg="up"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>';
+                                  }
+                                  echo '</td>';
                             }
                             
-                            while ($mightScaleRow = mysql_fetch_array($getMightScale)) {
+                            while ($mightScaleRow = $getMightScale->fetch_assoc()) {
                                 
                             echo '<td>
                                   <span '; if ($currentMightIndex === '1') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $mightScaleRow['1'] . '</span>
@@ -157,12 +163,23 @@ mysql_select_db("betrayalapp_db", $con);
                                   <span '; if ($currentMightIndex === '7') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $mightScaleRow['7'] . '</span>
                                   <span '; if ($currentMightIndex === '8') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $mightScaleRow['8'] . '</span>
                                   <span '; if ($currentMightIndex === '9') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $mightScaleRow['9'] . '</span>
-                                  <br><br><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                  </td>';      
+                                  <br><br>';
+                                  if ($currentMightIndex === '1') {
+                                      echo '<button class="btn btn-danger" disabled><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>';
+                                  } else {
+                                      echo '<button class="btn btn-danger attrChg" data-attr="Might" data-id="'.$CharID.'" data-chg="down"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>';
+                                  }
+                                  if ($currentMightIndex === '9') {
+                                  echo ' <button class="btn btn-success" disabled><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>';
+                                      
+                                  } else {
+                                  echo '<button class="btn btn-success attrChg" data-attr="Might" data-id="'.$CharID.'" data-chg="up"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>';
+                                  }
+                                  echo '</td>';     
                                   
                             }
                             
-                            while ($sanityScaleRow = mysql_fetch_array($getSanityScale)) {
+                            while ($sanityScaleRow = $getSanityScale->fetch_assoc()) {
                                 
                             echo '<td>
                                   <span '; if ($currentSanityIndex === '1') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $sanityScaleRow['1'] . '</span>
@@ -174,12 +191,23 @@ mysql_select_db("betrayalapp_db", $con);
                                   <span '; if ($currentSanityIndex === '7') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $sanityScaleRow['7'] . '</span>
                                   <span '; if ($currentSanityIndex === '8') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $sanityScaleRow['8'] . '</span>
                                   <span '; if ($currentSanityIndex === '9') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $sanityScaleRow['9'] . '</span>
-                                  <br><br><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                  </td>';      
+                                  <br><br>';
+                                  if ($currentSanityIndex === '1') {
+                                      echo '<button class="btn btn-danger" disabled><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>';
+                                  } else {
+                                      echo '<button class="btn btn-danger attrChg" data-attr="Sanity" data-id="'.$CharID.'" data-chg="down"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>';
+                                  }
+                                  if ($currentSanityIndex === '9') {
+                                  echo ' <button class="btn btn-success" disabled><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>';
+                                      
+                                  } else {
+                                  echo '<button class="btn btn-success attrChg" data-attr="Sanity" data-id="'.$CharID.'" data-chg="up"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>';
+                                  }
+                                  echo '</td>';      
                                   
                             }
                             
-                            while ($knowledgeScaleRow = mysql_fetch_array($getKnowledgeScale)) {
+                            while ($knowledgeScaleRow = $getKnowledgeScale->fetch_assoc()) {
                                 
                             echo '<td>
                                   <span '; if ($currentKnowledgeIndex === '1') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $knowledgeScaleRow['1'] . '</span>
@@ -191,8 +219,19 @@ mysql_select_db("betrayalapp_db", $con);
                                   <span '; if ($currentKnowledgeIndex === '7') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $knowledgeScaleRow['7'] . '</span>
                                   <span '; if ($currentKnowledgeIndex === '8') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $knowledgeScaleRow['8'] . '</span>
                                   <span '; if ($currentKnowledgeIndex === '9') { echo 'class="label label-primary"'; } else { echo 'class="label label-default"'; } echo '>' . $knowledgeScaleRow['9'] . '</span>
-                                  <br><br><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                                  </td>';      
+                                  <br><br>';
+                                  if ($currentKnowledgeIndex === '1') {
+                                      echo '<button class="btn btn-danger" disabled><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>';
+                                  } else {
+                                      echo '<button class="btn btn-danger attrChg" data-attr="Knowledge" data-id="'.$CharID.'" data-chg="down"><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span></button>';
+                                  }
+                                  if ($currentKnowledgeIndex === '9') {
+                                  echo ' <button class="btn btn-success" disabled><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>';
+                                      
+                                  } else {
+                                  echo '<button class="btn btn-success attrChg" data-attr="Knowledge" data-id="'.$CharID.'" data-chg="up"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button>';
+                                  }
+                                  echo '</td>';      
                                   
                             }
                         }
@@ -202,9 +241,11 @@ mysql_select_db("betrayalapp_db", $con);
             </div>
             <div class="row game-in-progress">
                 <div class="col-lg-12">
-                    <button class="btn btn-danger">New Game</button>
+                    <br><br><br>
+                    <?php if ($gm_status === 'Started') { echo '<button id="newGameBtn" class="btn btn-danger">New Game</button>'; } ?>
                 </div>
             </div>
+            <br><br><br>
         </div>
     </body>
 </html>
