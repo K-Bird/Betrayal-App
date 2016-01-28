@@ -66,6 +66,30 @@ if ($change === 'down') {
                     echo '1';
                 }
             }
+            
+            if ($attr === 'might') {
+                if ($CheckAttrsRow['current_might'] > 2) {
+                    $DecSpeed = db_query("UPDATE `active_characters` set current_might = current_might - 1 WHERE Character_ID='$id'");
+                } else {
+                    echo '1';
+                }
+            }
+            
+            if ($attr === 'sanity') {
+                if ($CheckAttrsRow['current_sanity'] > 2) {
+                    $DecSpeed = db_query("UPDATE `active_characters` set current_sanity = current_sanity - 1 WHERE Character_ID='$id'");
+                } else {
+                    echo '1';
+                }
+            }
+            
+            if ($attr === 'knowledge') {
+                if ($CheckAttrsRow['current_knowledge'] > 2) {
+                    $DecSpeed = db_query("UPDATE `active_characters` set current_knowledge = current_knowledge - 1 WHERE Character_ID='$id'");
+                } else {
+                    echo '1';
+                }
+            }
         
             
     }

@@ -94,7 +94,7 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  if ($currentMightIndex === '1') {
  echo '<button class="btn btn-lg btn-danger" disabled> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  } else {
- echo '<button class="btn btn-lg btn-danger attrChg" data-attr="Might" data-id="'.$CharID.'" data-chg="down"> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
+ echo '<button class="btn btn-lg btn-danger attrChg" data-attr="might" data-id="'.$CharID.'" data-chg="down"> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  }
  echo
  '<div class="btn-group btn-group-lg" role="group">
@@ -128,7 +128,7 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  if ($currentSanityIndex === '1') {
   echo '<button class="btn btn-lg btn-danger" disabled> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  } else {
-  echo '<button class="btn btn-lg btn-danger attrChg" data-attr="Sanity" data-id="'.$CharID.'" data-chg="down"> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
+  echo '<button class="btn btn-lg btn-danger attrChg" data-attr="sanity" data-id="'.$CharID.'" data-chg="down"> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  }
  echo 
  '<div class="btn-group btn-group-lg" role="group">
@@ -161,7 +161,7 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  if ($currentKnowledgeIndex === '1') {
  echo '<button class="btn btn-lg btn-danger" disabled> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  } else {
-  echo '<button class="btn btn-lg btn-danger attrChg" data-attr="Knowledge" data-id="'.$CharID.'" data-chg="down"> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
+  echo '<button class="btn btn-lg btn-danger attrChg" data-attr="knowledge" data-id="'.$CharID.'" data-chg="down"> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  }
  echo
  '<div class="btn-group btn-group-lg" role="group">
