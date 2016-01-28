@@ -9,14 +9,17 @@ include ('libs/db/db_functions.php');
         <link href="libs/css/bootstrap-theme.css" rel="stylesheet" type="text/css">
         <script src="libs/js/jquery.js"></script>
         <script src="libs/js/bootstrap.js"></script>
-        <script src="libs/js/mobile.js"></script>
+        <script src="libs/js/game.js"></script>
     </head>
     <body>
-        <?php include ('parts/checkGameStatus.php'); ?>
-        <div class="row" style="text-align: center">
-            <div class="col-xs-12">
-                 <?php if ($gm_status === 'Not Started') { include('parts/mobile/mobile_preGame.php'); } ?>
-                 <?php if ($gm_status === 'Started') { include('parts/mobile/mobile_game.php'); } ?>
+        <div class="container-fluid" style="text-align : center">
+            <?php include ('nav/master_nav.php'); ?>
+            <?php include ('parts/checkGameStatus.php'); ?>
+            <div class="row" style="text-align: center">
+                <div class="col-xs-12">
+                     <?php if ($gm_status === 'Not Started') { include('parts/game/preGame.php'); } ?>
+                     <?php if ($gm_status === 'Started') { include('parts/game/active_game.php'); } ?>
+                </div>
             </div>
         </div>
     </body>
