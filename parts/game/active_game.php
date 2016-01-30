@@ -1,6 +1,6 @@
 <br>
 <div class="btn-group">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Select Character <span class="caret"></span>
   </button>
   <ul class="dropdown-menu">
@@ -43,13 +43,15 @@ $currKnowledge = $playerRow['current_knowledge'];
 
 if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnowledge === '1' ) {
   
-  echo '<table id="charTable'.$CharID.'" class="table table-condensed" style="text-align : center"><tr><td>'.$name.' is Dead</td></tr></table>';
+  echo ' <h2 id="charDead'.$CharID.'" class="deadLabel"><span class="label label-danger">'.$name.' is Dead</span></h2>';
  
 } else {
  
- echo '<table id="charTable'.$CharID.'" class="table table-condensed" style="text-align : center">
+ echo '<table style="color: white; text-align: center; border : none" id="charTable'.$CharID.'" class="table table-condensed" style="text-align : center">
  <tr>
- <td>'. $name ." : ". $PlayedBy .'</td>
+ <td>
+ <h2><img src="libs/images/'.$CharID.'.png" height="60" width="60"></img><span class="label label-default">'. $name ." : ". $PlayedBy .'</span></h2>
+ </td>
  </tr>
  
  <tr>';
@@ -58,7 +60,7 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  $getSpeedScale = db_query("SELECT * FROM `stat_scale_speed` WHERE Row_ID='{$CharID}'");
  $speedScaleRow = $getSpeedScale->fetch_assoc();
  
- echo '<td>Speed<br>';
+ echo '<td><kbd>Speed</kbd><br>';
  if ($currentSpeedIndex === '1') {
   echo '<button class="btn btn-lg btn-danger" disabled> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>';
  } else {
@@ -66,15 +68,15 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  }
  echo '
  <div class="btn-group btn-group-lg" role="group">
-  <button '; if ($currentSpeedIndex === '1') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['1'] . '</button>
-  <button '; if ($currentSpeedIndex === '2') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['2'] . '</button>
-  <button '; if ($currentSpeedIndex === '3') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['3'] . '</button>
-  <button '; if ($currentSpeedIndex === '4') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['4'] . '</button>
-  <button '; if ($currentSpeedIndex === '5') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['5'] . '</button>
-  <button '; if ($currentSpeedIndex === '6') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['6'] . '</button>
-  <button '; if ($currentSpeedIndex === '7') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['7'] . '</button>
-  <button '; if ($currentSpeedIndex === '8') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['8'] . '</button>
-  <button '; if ($currentSpeedIndex === '9') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $speedScaleRow['9'] . '</button>
+  <button '; if ($currentSpeedIndex === '1') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default deadBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="1"'; } echo '><img src="libs/images/skull.png" height="23px" width="20px"></img></button>
+  <button '; if ($currentSpeedIndex === '2') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="2"'; } echo '>' . $speedScaleRow['2'] . '</button>
+  <button '; if ($currentSpeedIndex === '3') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="3"'; } echo '>' . $speedScaleRow['3'] . '</button>
+  <button '; if ($currentSpeedIndex === '4') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="4"'; } echo '>' . $speedScaleRow['4'] . '</button>
+  <button '; if ($currentSpeedIndex === '5') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="5"'; } echo '>' . $speedScaleRow['5'] . '</button>
+  <button '; if ($currentSpeedIndex === '6') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="6"'; } echo '>' . $speedScaleRow['6'] . '</button>
+  <button '; if ($currentSpeedIndex === '7') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="7"'; } echo '>' . $speedScaleRow['7'] . '</button>
+  <button '; if ($currentSpeedIndex === '8') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="8"'; } echo '>' . $speedScaleRow['8'] . '</button>
+  <button '; if ($currentSpeedIndex === '9') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="speed" data-attrnum="9"'; } echo '>' . $speedScaleRow['9'] . '</button>
  </div>';
  if ($currentSpeedIndex === '9') {
   echo '&nbsp;<button class="btn btn-lg btn-success" disabled> <div class="glyphicon glyphicon-plus-sign" aria-hidden="true"></button></button>';
@@ -90,7 +92,7 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  $getMightScale = db_query("SELECT * FROM `stat_scale_might` WHERE Row_ID='{$CharID}'");
  $mightScaleRow = $getMightScale->fetch_assoc();
  
- echo '<td>Might<br>';
+ echo '<td><kbd>Might</kbd><br>';
  if ($currentMightIndex === '1') {
  echo '<button class="btn btn-lg btn-danger" disabled> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  } else {
@@ -98,15 +100,15 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  }
  echo
  '<div class="btn-group btn-group-lg" role="group">
-  <button '; if ($currentMightIndex === '1') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['1'] . '</button>
-  <button '; if ($currentMightIndex === '2') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['2'] . '</button>
-  <button '; if ($currentMightIndex === '3') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['3'] . '</button>
-  <button '; if ($currentMightIndex === '4') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['4'] . '</button>
-  <button '; if ($currentMightIndex === '5') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['5'] . '</button>
-  <button '; if ($currentMightIndex === '6') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['6'] . '</button>
-  <button '; if ($currentMightIndex === '7') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['7'] . '</button>
-  <button '; if ($currentMightIndex === '8') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['8'] . '</button>
-  <button '; if ($currentMightIndex === '9') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $mightScaleRow['9'] . '</button>
+  <button '; if ($currentMightIndex === '1') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default deadBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="1"'; } echo '><img src="libs/images/skull.png" height="23px" width="20px"></img></button>
+  <button '; if ($currentMightIndex === '2') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="2"'; } echo '>' . $mightScaleRow['2'] . '</button>
+  <button '; if ($currentMightIndex === '3') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="3"'; } echo '>' . $mightScaleRow['3'] . '</button>
+  <button '; if ($currentMightIndex === '4') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="4"'; } echo '>' . $mightScaleRow['4'] . '</button>
+  <button '; if ($currentMightIndex === '5') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="5"'; } echo '>' . $mightScaleRow['5'] . '</button>
+  <button '; if ($currentMightIndex === '6') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="6"'; } echo '>' . $mightScaleRow['6'] . '</button>
+  <button '; if ($currentMightIndex === '7') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="7"'; } echo '>' . $mightScaleRow['7'] . '</button>
+  <button '; if ($currentMightIndex === '8') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="8"'; } echo '>' . $mightScaleRow['8'] . '</button>
+  <button '; if ($currentMightIndex === '9') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="might" data-attrnum="9"'; } echo '>' . $mightScaleRow['9'] . '</button>
  </div>';
  if ($currentMightIndex === '9') {
  echo '&nbsp;<button class="btn btn-lg btn-success" disabled> <div class="glyphicon glyphicon-plus-sign" aria-hidden="true"></button></button>';
@@ -124,7 +126,7 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  $getSanityScale = db_query("SELECT * FROM `stat_scale_sanity` WHERE Row_ID='{$CharID}'");
  $sanityScaleRow = $getSanityScale->fetch_assoc();
  
- echo '<td>Sanity<br>';
+ echo '<td><kbd>Sanity</kbd><br>';
  if ($currentSanityIndex === '1') {
   echo '<button class="btn btn-lg btn-danger" disabled> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  } else {
@@ -132,15 +134,15 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  }
  echo 
  '<div class="btn-group btn-group-lg" role="group">
-  <button '; if ($currentSanityIndex === '1') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['1'] . '</button>
-  <button '; if ($currentSanityIndex === '2') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['2'] . '</button>
-  <button '; if ($currentSanityIndex === '3') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['3'] . '</button>
-  <button '; if ($currentSanityIndex === '4') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['4'] . '</button>
-  <button '; if ($currentSanityIndex === '5') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['5'] . '</button>
-  <button '; if ($currentSanityIndex === '6') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['6'] . '</button>
-  <button '; if ($currentSanityIndex === '7') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['7'] . '</button>
-  <button '; if ($currentSanityIndex === '8') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['8'] . '</button>
-  <button '; if ($currentSanityIndex === '9') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $sanityScaleRow['9'] . '</button>
+  <button '; if ($currentSanityIndex === '1') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default deadBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="1"'; } echo '><img src="libs/images/skull.png" height="23px" width="20px"></img></button>
+  <button '; if ($currentSanityIndex === '2') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="2"'; } echo '>' . $sanityScaleRow['2'] . '</button>
+  <button '; if ($currentSanityIndex === '3') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="3"'; } echo '>' . $sanityScaleRow['3'] . '</button>
+  <button '; if ($currentSanityIndex === '4') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="4"'; } echo '>' . $sanityScaleRow['4'] . '</button>
+  <button '; if ($currentSanityIndex === '5') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="5"'; } echo '>' . $sanityScaleRow['5'] . '</button>
+  <button '; if ($currentSanityIndex === '6') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="6"'; } echo '>' . $sanityScaleRow['6'] . '</button>
+  <button '; if ($currentSanityIndex === '7') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="7"'; } echo '>' . $sanityScaleRow['7'] . '</button>
+  <button '; if ($currentSanityIndex === '8') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="8"'; } echo '>' . $sanityScaleRow['8'] . '</button>
+  <button '; if ($currentSanityIndex === '9') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default attrBtn" data-charid="'.$CharID.'" data-attr="sanity" data-attrnum="9"'; } echo '>' . $sanityScaleRow['9'] . '</button>
  </div>';
  if ($currentSanityIndex === '9') {
   echo '&nbsp;<button class="btn btn-lg btn-success" disabled> <div class="glyphicon glyphicon-plus-sign" aria-hidden="true"></button></button>';
@@ -157,7 +159,7 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  $getKnowledgeScale = db_query("SELECT * FROM `stat_scale_knowledge` WHERE Row_ID='{$CharID}'");
  $knowledgeScaleRow = $getKnowledgeScale->fetch_assoc();
  
- echo '<td>Knowledge<br>';
+ echo '<td><kbd>Knowledge</kbd><br>';
  if ($currentKnowledgeIndex === '1') {
  echo '<button class="btn btn-lg btn-danger" disabled> <div class="glyphicon glyphicon-minus-sign" aria-hidden="true"></button></button>&nbsp;';
  } else {
@@ -165,15 +167,15 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
  }
  echo
  '<div class="btn-group btn-group-lg" role="group">
-  <button '; if ($currentKnowledgeIndex === '1') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['1'] . '</button>
-  <button '; if ($currentKnowledgeIndex === '2') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['2'] . '</button>
-  <button '; if ($currentKnowledgeIndex === '3') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['3'] . '</button>
-  <button '; if ($currentKnowledgeIndex === '4') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['4'] . '</button>
-  <button '; if ($currentKnowledgeIndex === '5') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['5'] . '</button>
-  <button '; if ($currentKnowledgeIndex === '6') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['6'] . '</button>
-  <button '; if ($currentKnowledgeIndex === '7') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['7'] . '</button>
-  <button '; if ($currentKnowledgeIndex === '8') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['8'] . '</button>
-  <button '; if ($currentKnowledgeIndex === '9') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default"'; } echo '>' . $knowledgeScaleRow['9'] . '</button>
+  <button '; if ($currentKnowledgeIndex === '1') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  deadBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="1"'; } echo '><img src="libs/images/skull.png" height="23px" width="20px"></img></button>
+  <button '; if ($currentKnowledgeIndex === '2') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  attrBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="2"'; } echo '>' . $knowledgeScaleRow['2'] . '</button>
+  <button '; if ($currentKnowledgeIndex === '3') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  attrBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="3"'; } echo '>' . $knowledgeScaleRow['3'] . '</button>
+  <button '; if ($currentKnowledgeIndex === '4') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  attrBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="4"'; } echo '>' . $knowledgeScaleRow['4'] . '</button>
+  <button '; if ($currentKnowledgeIndex === '5') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  attrBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="5"'; } echo '>' . $knowledgeScaleRow['5'] . '</button>
+  <button '; if ($currentKnowledgeIndex === '6') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  attrBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="6"'; } echo '>' . $knowledgeScaleRow['6'] . '</button>
+  <button '; if ($currentKnowledgeIndex === '7') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  attrBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="7"'; } echo '>' . $knowledgeScaleRow['7'] . '</button>
+  <button '; if ($currentKnowledgeIndex === '8') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  attrBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="8"'; } echo '>' . $knowledgeScaleRow['8'] . '</button>
+  <button '; if ($currentKnowledgeIndex === '9') { echo 'class="btn btn-primary"'; } else { echo 'class="btn btn-default  attrBtn" data-charid="'.$CharID.'" data-attr="knowledge" data-attrnum="9"'; } echo '>' . $knowledgeScaleRow['9'] . '</button>
  </div>';
  if ($currentKnowledgeIndex === '9') {
   echo '&nbsp;<button class="btn btn-lg btn-success" disabled> <div class="glyphicon glyphicon-plus-sign" aria-hidden="true"></button></button>';
@@ -189,4 +191,6 @@ if ($currSpeed === '1' || $currMight === '1' || $currSanity === '1' || $currKnow
 }
 ?>
 
-<?php include('parts/modals/claimCharacterModal.php');
+<?php
+include('parts/modals/claimCharacterModal.php');
+include('parts/modals/confirmDeadModal.php');

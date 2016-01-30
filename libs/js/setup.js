@@ -1,5 +1,8 @@
 $(document).ready(function() {
     
+    if($("#setupPage").length > 0) {
+    $('#setupNav').addClass("active");
+}
     
     $(".addActiveChar").click(function(e) {
 
@@ -50,6 +53,9 @@ $(document).ready(function() {
             }
         });
         e.preventDefault();
+        
+        window.location.href = "game.php";
+        location.reload();
 
     });
 

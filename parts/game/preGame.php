@@ -1,1 +1,1 @@
-<h1>Game Has Not Yet Started</h1>
+<h2><span class="label label-default">Game Has Not Yet Started</span></h2>

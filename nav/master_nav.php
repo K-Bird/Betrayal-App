@@ -1,7 +1,8 @@
 <br>
-<div class="btn-group" role="group" aria-label="...">
-  <a href="index.php"><button type="button" class="btn btn-default">Home</button></a>
-  <a href="game.php"><button type="button" class="btn btn-default">Active Game</button></a>
-  <a href="setup.php"><button type="button" class="btn btn-default">Setup</button></a>
-</div>
-          
+<nav>
+  <ul id="masterNav" class="pagination">
+    <li id="indexNav"><a style="color: black" href="index.php">Home</a></li>
+    <li id="gameNav"><a style="color: black" href="game.php">Active Game</a></li>
+    <li id="setupNav"><a style="color: black" href="setup.php">Setup Game</a></li>
+  </ul>
+</nav>
