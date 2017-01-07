@@ -24,8 +24,8 @@ echo '<div id="claimCharacter'.$CharID.'" class="modal fade claimModal" tabindex
           <input name="playerName" class="form-control" type=text />
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Do Not Claim Character</button>
-          <button type="submit" class="btn btn-primary">Claim Character</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Do Not Claim Character</button>
+          <button type="submit" class="btn btn-info">Claim Character</button>
           <input type="hidden" name="charID" value="'.$CharID.'" />
         </div>
       </form>

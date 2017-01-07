@@ -30,7 +30,7 @@ while ($playerRow = $GetSelectedPlayer->fetch_assoc()) {
 $CharID = $playerRow['Character_ID'];
 $PlayedBy = $playerRow['PlayedBy'];
 if (empty($PlayedBy)) {
-    $PlayedBy = "Player Not Yet In App";
+    $PlayedBy = "Player Not Yet In Game";
 }
 $GetCharName = db_query("SELECT `Persona` FROM `characters_list` WHERE Row_ID='{$CharID}'");
 $valueOfName = $GetCharName->fetch_assoc();
